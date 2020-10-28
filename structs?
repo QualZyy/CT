@@ -1,0 +1,18 @@
+//Person struct
+
+struct person
+{
+    char _name[40];
+    long _birthdate;
+    int _infected;      //TRUE OR FALSE
+    long int _date;
+    double _time;
+};
+
+//Room visits struct
+
+struct rooms
+{
+    struct person _who[];
+    long int _when[];    
+};
