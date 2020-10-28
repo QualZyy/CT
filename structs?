@@ -1,4 +1,14 @@
 #include <stdio.h>
+#include <string.h>
+
+int registerPerson(char*, long);
+int deletePerson();
+int registerRoom();
+int deleteRoom();
+int registerContamination();
+int registerVisit();
+int writeToFile();
+int readFromFile();
 
 //Person struct
 struct person {
@@ -17,11 +27,15 @@ struct rooms {
 };
 
 struct person personRegister[1000]; //Register of all registered people
+int registeredPersons = 0;
 
 int main() {
     int exit = 0;
     while(!exit) {
-        printf("")
+        printf("\n\n\n-*-*-*-*-   CoronaTracker (CT)   -*-*-*-*-\n");
+        printf("Enter corresponding number to what you want to do\n1.Register ");
+        printf("new person\n2.Delete person\n3.Register new room\n4.Delete room\n5.Register contamination");
+        printf("\n6.Register visit\n7.Write to file\n8.Read from file\n9.Exit\n");
 
         int option;
         scanf("%i", &option);
@@ -35,62 +49,68 @@ int main() {
                 long birthDate;
                 scanf("%li", &birthDate);
                 
-                if(/*Run function that returns 1 or 0*/) {
+                if(registerPerson(name, birthDate)) {
                     printf("Person was successfully added!");
                 } else {
                     printf("An error occured");
                 }
-            break;
+                break;
 
             case 2: //Delete person
 
-            break;
+                break;
 
             case 3: //Register room
 
-            break;
+                break;
 
             case 4: //Delete room
 
-            break;
+                break;
 
             case 5: //Register contamination
 
-            break;
+                break;
 
             case 6: //Register a visit
 
-            break;
+                break;
 
-            case 7: //Write from file
+            case 7: //Write to file
 
-            break;
+                break;
 
-            case 8: //Read to file
+            case 8: //Read from file
 
-            break;
+                break;
 
             case 9:
                 exit = 1;
-            break;
+                break;
 
             case 69:
                 printf("Nice");
-            break;
+                break;
 
             default:
                 printf("wtf");
-            break;
+                break;
         }
     }
     return 0;
 }
 
 int registerPerson(char name[40], long dateOfBirth) {
-    if () //at 
+    if(name == "" || dateOfBirth <= 0) {
+        return 0;
+    }
+    strcpy(personRegister[registeredPersons]._name, name);
+    personRegister[registeredPersons]._birthdate = dateOfBirth;
+    registeredPersons++;
+    return 1;
 }
 
 int readFromFile() {
-    for/while{}
-        registerPerson
+    //for/while{}
+       // registerPerson
 }
