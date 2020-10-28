@@ -1,2 +1,2 @@
 # CT
-CoronaTracter (CT), a free and open source program used to track patients infected with Covid-19
+CoronaTractor (CT), a free and open source program used to track patients infected with Covid-19
