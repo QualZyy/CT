@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 //Person struct
 
 struct person
@@ -16,3 +18,70 @@ struct rooms
     struct person _who[900];
     long int _when[900];    
 };
+
+
+int main() {
+    int exit = 0;
+    while(!exit) {
+        int option;
+        scanf("%i", &option);
+
+        switch(option) {
+            case 1: //Register new person
+                printf("Enter name");
+                char name[40];
+                scanf("%s", &name);
+                printf("Enter date of birth YYYYMMDD");
+                long birthDate;
+                scanf("%li", &birthDate);
+                
+                if(/*Run function that returns 1 or 0*/) {
+                    printf("Person was successfully added!");
+                } else {
+                    printf("An error occured");
+                }
+            break;
+
+            case 2: //Delete person
+
+            break;
+
+            case 3: //Register room
+
+            break;
+
+            case 4: //Delete room
+
+            break;
+
+            case 5: //Register contamination
+
+            break;
+
+            case 6: //Register a visit
+
+            break;
+
+            case 7: //Read from file
+
+            break;
+
+            case 8: //Write to file
+
+            break;
+
+            case 9:
+                exit = 1;
+            break;
+
+            case 69:
+                printf("Nice");
+            break;
+
+            default:
+                printf("wtf");
+            break;
+        }
+    }
+    return 0;
+}
