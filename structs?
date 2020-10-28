@@ -1,9 +1,7 @@
 #include <stdio.h>
 
 //Person struct
-
-struct person
-{
+struct person {
     char _name[40];
     long _birthdate;
     int _infected;      //TRUE OR FALSE
@@ -11,18 +9,20 @@ struct person
     double _time;
 };
 
-//Room visits struct
 
-struct rooms
-{
-    struct person _who[900];
+//Room visits struct
+struct rooms {
+    struct person _visitors[900];
     long int _when[900];    
 };
 
+struct person personRegister[1000]; //Register of all registered people
 
 int main() {
     int exit = 0;
     while(!exit) {
+        printf("")
+
         int option;
         scanf("%i", &option);
 
@@ -62,11 +62,11 @@ int main() {
 
             break;
 
-            case 7: //Read from file
+            case 7: //Write from file
 
             break;
 
-            case 8: //Write to file
+            case 8: //Read to file
 
             break;
 
@@ -84,4 +84,13 @@ int main() {
         }
     }
     return 0;
+}
+
+int registerPerson(char name[40], long dateOfBirth) {
+    if () //at 
+}
+
+int readFromFile() {
+    for/while{}
+        registerPerson
 }
