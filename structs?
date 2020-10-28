@@ -13,6 +13,6 @@ struct person
 
 struct rooms
 {
-    struct person _who[];
-    long int _when[];    
+    struct person _who[900];
+    long int _when[900];    
 };
