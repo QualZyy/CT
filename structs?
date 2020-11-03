@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+#define MAX_STR_LEN 256
 
 int registerPerson(char*, long);
 int deletePerson();
@@ -13,7 +16,7 @@ int readFromFile();
 //Person struct
 struct person {
     char _name[40];
-    long _birthdate;
+    long _birthDate;
     int _infected;      //TRUE OR FALSE
     long int _date;
     double _time;
@@ -81,7 +84,10 @@ int main() {
                 break;
 
             case 8: //Read from file
-
+                readFromFile();
+                for(int i=0; i<10; i++) {
+                    printf("%s", personRegister[i]);
+                }
                 break;
 
             case 9:
@@ -105,40 +111,41 @@ int registerPerson(char name[40], long dateOfBirth) {
         return 0;
     }
     strcpy(personRegister[registeredPersons]._name, name);
-    personRegister[registeredPersons]._birthdate = dateOfBirth;
+    personRegister[registeredPersons]._birthDate = dateOfBirth;
     registeredPersons++;
     return 1;
 }
 
 int readFromFile() {
-     FILE *CTeks;
+    FILE *f;
 
     char *buf = malloc(MAX_STR_LEN);
     char *tmp;
 
-     if (buf == NULL) {
+    if (buf == NULL) {
         printf ("No memory\n");
-        return 1;
+        return 0;
     }
-     if ( ( CTeks = fopen( "klasse.txt", "r" ) ) == NULL ) //Reading a file
+    if ( ( f = fopen( "klasse.txt", "r+" ) ) == NULL ) //Reading a file
     {
         printf( "File could not be opened.\n" );
+        return 0;
     }
 
     int i = 0;
-    while (fgets(buf, 255, CTeks) != NULL)                  //Her crasher programmet
-    {
-        if ((strlen(buf)>0) && (buf[strlen (buf) - 1] == '\n'))
-            buf[strlen (buf) - 1] = '\0';       
-
-        tmp = strtok(buf, ";");
-        person[i].name = strd(tmp);
-
-        tmp = strtok(NULL, ";");
-        person[i].birthdate = strd(tmp);
-
+    while (fgets(buf, 50, (FILE*) f))
+	{
+		char * pch;
+		pch = strtok (buf, ";");
+		/*while(pch != NULL)
+		{
+			strcpy(personRegister[i]._name, strdup(buf));
+			pch = strtok (NULL, ";");
+		
+		}*/
         i++;
-    }
-    fclose(CTeks);
-    return 0;
+	}
+  
+    fclose(f);
+    return 1;
 }
