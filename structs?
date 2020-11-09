@@ -4,7 +4,7 @@
 
 #define MAX_STR_LEN 256
 
-int registerPerson(char*, long);
+int registerPerson(char*, long, int, long int, double);
 int deletePerson();
 int registerRoom();
 int deleteRoom();
@@ -38,7 +38,7 @@ int main() {
         printf("\n\n\n-*-*-*-*-   CoronaTracker (CT)   -*-*-*-*-\n");
         printf("Enter corresponding number to what you want to do\n1.Register ");
         printf("new person\n2.Delete person\n3.Register new room\n4.Delete room\n5.Register contamination");
-        printf("\n6.Register visit\n7.Write to file\n8.Read from file\n9.Exit\n");
+        printf("\n6.Register visit\n7.Write to file\n8.Read from file\n9.Print Whole Database\n10.Exit\n");
 
         int option;
         scanf("%i", &option);
@@ -85,15 +85,18 @@ int main() {
 
             case 8: //Read from file
                 readFromFile();
+                break;
+
+            case 9:
                 for(int i=0; i<10; i++) {
                     printf("%s", personRegister[i]);
                 }
                 break;
 
-            case 9:
+            case 10:
                 exit = 1;
                 break;
-
+            
             case 69:
                 printf("Nice");
                 break;
@@ -106,46 +109,62 @@ int main() {
     return 0;
 }
 
-int registerPerson(char name[40], long dateOfBirth) {
+int registerPerson(char name[40], long dateOfBirth, int inf, long int date, double time) {
     if(name == "" || dateOfBirth <= 0) {
         return 0;
     }
     strcpy(personRegister[registeredPersons]._name, name);
     personRegister[registeredPersons]._birthDate = dateOfBirth;
+    personRegister[registeredPersons]._infected = inf;
+    personRegister[registeredPersons]._date = date;
+    personRegister[registeredPersons]._time = time;
     registeredPersons++;
     return 1;
 }
 
 int readFromFile() {
     FILE *f;
-
     char *buf = malloc(MAX_STR_LEN);
-    char *tmp;
 
     if (buf == NULL) {
         printf ("No memory\n");
         return 0;
     }
-    if ( ( f = fopen( "klasse.txt", "r+" ) ) == NULL ) //Reading a file
-    {
+
+    if ((f = fopen("klasse.txt", "r+")) == NULL) {
         printf( "File could not be opened.\n" );
         return 0;
     }
 
     int i = 0;
-    while (fgets(buf, 50, (FILE*) f))
-	{
-		char * pch;
-		pch = strtok (buf, ";");
-		/*while(pch != NULL)
-		{
-			strcpy(personRegister[i]._name, strdup(buf));
-			pch = strtok (NULL, ";");
-		
-		}*/
-        i++;
-	}
-  
+    while (fgets(buf, 50, (FILE*) f)) {
+        //Starter på ny person/linje
+		char * attributeValue;
+		attributeValue = strtok(buf, ";"); //Henter hver info, steg for steg
+		int attributeNr = 0;
+        while (attributeValue != NULL) { 
+            //Går gjennom hver attributt i fil
+			if(attributeNr == 0) 
+				strcpy(personRegister[registeredPersons]._name, attributeValue);
+			
+			if(attributeNr == 1)
+				personRegister[registeredPersons]._birthDate = (long) attributeValue;
+			
+			if(attributeNr == 2)
+				personRegister[registeredPersons]._infected = (int) attributeValue;
+
+            if(attributeNr == 3)
+				personRegister[registeredPersons]._date = (long) attributeValue;
+
+            if(attributeNr == 4) //Double e apparently en pain in the ass
+				personRegister[registeredPersons]._time = strtod(attributeValue, NULL);
+			
+			attributeValue = strtok(NULL, ";");
+			attributeNr++;
+		}
+		i++;
+	}  
     fclose(f);
     return 1;
 }
+
