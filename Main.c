@@ -4,7 +4,7 @@
 
 #define MAX_STR_LEN 256
 
-int registerPerson(char*, long, int, long int, double);
+int registerPerson(char[], long, int, long int, double);
 int deletePerson();
 int registerRoom();
 int deleteRoom();
@@ -17,7 +17,7 @@ int readFromFile();
 struct person {
     char _name[40];
     long _birthDate;
-    int _infected;      //TRUE OR FALSE
+    int _infected;     
     long int _date;
     double _time;
 };
@@ -51,8 +51,17 @@ int main() {
                 printf("Enter date of birth YYYYMMDD");
                 long birthDate;
                 scanf("%li", &birthDate);
-                
-                if(registerPerson(name, birthDate)) {
+                printf("Enter 1 if infected, 0 if not infectred");
+                int infected;
+                scanf("%i", &infected);
+                printf("Enter date YYYYMMDD");
+                long int date;
+                scanf("%li", &date);
+                printf("Enter time HHMM");
+                double time;
+                scanf("%d", time);
+
+                if(registerPerson(name, birthDate, infected, date, time)) {
                     printf("Person was successfully added!");
                 } else {
                     printf("An error occured");
@@ -89,7 +98,7 @@ int main() {
 
             case 9:
                 for(int i=0; i<10; i++) {
-                    printf("%s", personRegister[i]);
+                    printf("%s", personRegister[i]._name);
                 }
                 break;
 
@@ -114,10 +123,15 @@ int registerPerson(char name[40], long dateOfBirth, int inf, long int date, doub
         return 0;
     }
     strcpy(personRegister[registeredPersons]._name, name);
+    printf("yo");
     personRegister[registeredPersons]._birthDate = dateOfBirth;
+    printf("yo");
     personRegister[registeredPersons]._infected = inf;
+    printf("yo");
     personRegister[registeredPersons]._date = date;
+    printf("yo");
     personRegister[registeredPersons]._time = time;
+    printf("yo");
     registeredPersons++;
     return 1;
 }
