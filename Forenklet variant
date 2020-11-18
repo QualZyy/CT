@@ -2,8 +2,71 @@
 #include <string.h>
 #include <stdlib.h>
 
+struct person{
+    char name [50];
+    int roomNumber;
+    int infected;                //POSITIV (1) - NEGATIV (0)
+}
+
 int main(){
+    int exit = 0;
+    while(!exit) {
+        printf("\n\n\n-*-*-*-*-   CoronaTracker (CT)   -*-*-*-*-\n");
+        printf("Enter corresponding number to what you want to do\n1.Register ");
+        printf("new person\n2.Delete person\n3.Register new room\n4.Delete room\n5.Register contamination");
+        printf("\n6.Register visit\n7.Write to file\n8.Read from file\n9.Print Whole Database\n10.Exit\n");
 
+        int option;
+        scanf("%i", &option);
 
-  return 0;
+        switch(option) {
+            case 1: //Register new person
+               
+                break;
+
+            case 2: //Delete person
+
+                break;
+
+            case 3: //Register room
+
+                break;
+
+            case 4: //Delete room
+
+                break;
+
+            case 5: //Register contamination
+
+                break;
+
+            case 6: //Register a visit
+
+                break;
+
+            case 7: //Write to file
+
+                break;
+
+            case 8: //Read from file
+                break;
+
+            case 9:
+            
+                break;
+
+            case 10:
+                exit = 1;
+                break;
+            
+            case 69:
+                printf("Nice");
+                break;
+
+            default:
+                printf("wtf");
+                break;
+        }
+    }
+    return 0;
 }
