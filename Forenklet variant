@@ -14,7 +14,7 @@ int main(){
         printf("\n\n\n-*-*-*-*-   CoronaTracker (CT)   -*-*-*-*-\n");
         printf("Enter corresponding number to what you want to do\n1.Register ");
         printf("new person\n2.Delete person\n3.Register infections\n4.Write to file\n5.Read from file");
-        printf("\n6.Print Whole Database\n7.Exit\n");
+        printf("\n6.Print Whole Database\n7.Who is infected?\n8.Who needs quaratine?\n9.Exit\n");
 
         int option;
         scanf("%i", &option);
@@ -44,9 +44,17 @@ int main(){
 
                 break;
 
-            case 7:  
-                exit = 1;
+            case 7:  //Who is infected
+                
 
+                break;
+            
+             case 8: //Close relations
+
+                break;
+            
+             case 9:
+                exit = 1;
                 break;
             
             case 69:
