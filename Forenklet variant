@@ -13,8 +13,8 @@ int main(){
     while(!exit) {
         printf("\n\n\n-*-*-*-*-   CoronaTracker (CT)   -*-*-*-*-\n");
         printf("Enter corresponding number to what you want to do\n1.Register ");
-        printf("new person\n2.Delete person\n3.Register new room\n4.Delete room\n5.Register contamination");
-        printf("\n6.Register visit\n7.Write to file\n8.Read from file\n9.Print Whole Database\n10.Exit\n");
+        printf("new person\n2.Delete person\n3.Register infections\n4.Write to file\n5.Read from file");
+        printf("\n6.Print Whole Database\n7.Exit\n");
 
         int option;
         scanf("%i", &option);
@@ -28,35 +28,25 @@ int main(){
 
                 break;
 
-            case 3: //Register room
+            case 3: //Register contamination
 
                 break;
 
-            case 4: //Delete room
+            case 4: //Write to file
 
                 break;
 
-            case 5: //Register contamination
+            case 5: //Read from file
 
                 break;
 
-            case 6: //Register a visit
+            case 6: //Print database
 
                 break;
 
-            case 7: //Write to file
-
-                break;
-
-            case 8: //Read from file
-                break;
-
-            case 9:
-            
-                break;
-
-            case 10:
+            case 7:  
                 exit = 1;
+
                 break;
             
             case 69:
