@@ -6,7 +6,9 @@ struct person{
     char name [50];
     int roomNumber;
     int infected;                //POSITIV (1) - NEGATIV (0)
-}
+};
+
+void printDatabase(char s);
 
 int main(){
     int exit = 0;
@@ -41,6 +43,8 @@ int main(){
                 break;
 
             case 6: //Print database
+            
+                 printDatabase('s');
 
                 break;
 
@@ -67,4 +71,20 @@ int main(){
         }
     }
     return 0;
+}
+
+void printDatabase(char s){
+
+    printf("Name, Infected, Roomnumber\n");
+    printf("-----|---------|-----------\n");
+
+    FILE *f;
+    f = fopen("Liste.txt", "r");
+
+    s = fgetc(f);
+    while(s != EOF){
+        printf("%c",s);
+        s = fgetc(f);
+    }
+    fclose(f);
 }
