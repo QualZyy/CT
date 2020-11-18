@@ -9,6 +9,7 @@ struct person{
 };
 
 void printDatabase(char s);
+void appendToFile (char s[100]);
 
 int main(){
     int exit = 0;
@@ -35,7 +36,9 @@ int main(){
                 break;
 
             case 4: //Write to file
-
+            
+                appendToFile("Hallo");
+                
                 break;
 
             case 5: //Read from file
@@ -88,3 +91,17 @@ void printDatabase(char s){
     }
     fclose(f);
 }
+
+void appendToFile (char s[100]){
+    FILE *f;
+
+    printf("Enter name, infection state 1 = Inefected and 0 = Not intfected. Enter it with this format:\n");
+    printf("name,infection,roomnumber");
+    gets(s); //DENNE CRASHER PROGRAMMET
+
+    f = fopen("Liste.txt", "a");
+    fputs(s,f);
+    
+    fclose(f);
+}
+
