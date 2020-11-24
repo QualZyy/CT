@@ -2,14 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct person{
+struct person {
     char name [50];
     int roomNumber;
     int infected;                //POSITIV (1) - NEGATIV (0)
 };
 
-void printDatabase(char s);
-void appendToFile (char s[100]);
+//void printDatabase();
+int appendToFile (char[100]);
+int registerPerson(char[50], char[3]);
 
 int main(){
     int exit = 0;
@@ -24,7 +25,18 @@ int main(){
 
         switch(option) {
             case 1: //Register new person
-               
+               printf("Enter name");
+                char name[40];
+                scanf("%s", &name);
+                printf("Enter date of room nr XXX");
+                char roomNr[3];
+                scanf("%s", &roomNr);
+
+                if(registerPerson(name, roomNr)) {
+                    printf("Person was successfully added!");
+                } else {
+                    printf("An error occured");
+                }
                 break;
 
             case 2: //Delete person
@@ -35,24 +47,21 @@ int main(){
 
                 break;
 
-            case 4: //Write to file
-            
+            /*case 4: //Write to file
                 appendToFile("Hallo");
                 
-                break;
+                break;*/
 
             case 5: //Read from file
 
                 break;
 
             case 6: //Print database
-            
-                 printDatabase('s');
+                 //printDatabase('s');
 
                 break;
 
             case 7:  //Who is infected
-                
 
                 break;
             
@@ -76,32 +85,54 @@ int main(){
     return 0;
 }
 
-void printDatabase(char s){
+int registerPerson(char name[50], char room[3]) {
+    char* s = malloc(sizeof(name) + sizeof(room));
+    s = strdup(name); //Legger navnet til strengen
+    strcat(s, ","); //Legger til komma
+    strcat(s, room); //Legger til romnr
+    strcat(s, "\n"); //Legger til newline
+    printf("%s", s);
+    appendToFile(s);
+}
 
+/*void printDatabase(){
     printf("Name, Infected, Roomnumber\n");
     printf("-----|---------|-----------\n");
 
     FILE *f;
     f = fopen("Liste.txt", "r");
-
+    char* s;
     s = fgetc(f);
     while(s != EOF){
         printf("%c",s);
         s = fgetc(f);
     }
     fclose(f);
-}
+}*/
 
-void appendToFile (char s[100]){
+int appendToFile (char* s){
+//Tar inn streng laget i main, ferdig oppsatt.
+//Appender bare neste linje i txt fila
     FILE *f;
-
-    printf("Enter name, infection state 1 = Inefected and 0 = Not intfected. Enter it with this format:\n");
-    printf("name,infection,roomnumber");
-    gets(s); //DENNE CRASHER PROGRAMMET
-
-    f = fopen("Liste.txt", "a");
-    fputs(s,f);
-    
-    fclose(f);
+    printf("yo");
+    f = fopen("Liste.txt", "a+");
+    printf("yoyo");
+    if (f == NULL) {
+        printf("f e noll");
+        return 0;
+    }
+    printf("%s", s);
+    if (fprintf(f, "%s", &s)) {
+        printf("yo");
+        fclose(f);
+        printf("yo");
+        free(s);
+        return 1;
+    } else {
+        printf("yo2");
+        fclose(f);
+        printf("yo2");
+        free(s);
+        return 0;
+    }
 }
-
