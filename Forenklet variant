@@ -11,9 +11,11 @@ struct person {
 struct person personRegister[40];
 int registeredPersons = 0;
 
+int deletePerson();
 int appendToFile();
 int registerPerson();
 int whoIsInfected(int i);
+int registerContamination();
 //int closeRelations(int i, int j);
 
 int main(){
@@ -29,7 +31,6 @@ int main(){
 
         switch(option) {
             case 1: //Register new person
-
                 if(registerPerson()) {
                     printf("Person was successfully added!");
                 } else {
@@ -38,11 +39,19 @@ int main(){
                 break;
 
             case 2: //Delete person
-
+                if (registerContamination()) {
+                    printf("A person with the entered name was deleted");
+                } else {
+                    printf("No person with that name was found");
+                }
                 break;
 
             case 3: //Register contamination
-
+                if (registerContamination()) {
+                    printf("One person was registered as infected");
+                } else {
+                    printf("No person with that name was found");
+                }
                 break;
 
             case 4: //Write to file
@@ -55,7 +64,6 @@ int main(){
                 break;
 
             case 6: //Print database
-                 
                 for(int i = 0; i<registeredPersons; i++) {
                     printf("Person %i:\n", i+1);
                     printf("Name: %s\n", personRegister[i]._name);
@@ -90,6 +98,44 @@ int main(){
     return 0;
 }
 
+int deletePerson() {
+    char name[50];
+    printf("Enter name of the person you want to delete\n");
+    scanf("%s", &name);
+
+    int lengthName = strlen(name);
+    char *nameDelete = malloc(lengthName+1);
+    strcpy(nameDelete, name);
+
+    for(int i = 0; i<registeredPersons; i++) {
+        if(!strcmp(personRegister[i]._name, nameDelete)) {
+            personRegister[i]._infected = -1;
+            strcpy(personRegister[i]._name, "");
+            personRegister[i]._roomNumber = -1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int registerContamination() {
+    char name[50];
+    printf("Enter the name of the infected patient\n");
+    scanf("%s", &name);
+
+    int lengthName = strlen(name);
+    char *nameInfected = malloc(lengthName+1);
+    strcpy(nameInfected, name);
+
+    for(int i = 0; i<registeredPersons; i++) {
+        if(!strcmp(personRegister[i]._name, nameInfected)) {
+            personRegister[i]._infected = 1;
+            return 1;
+        }
+    }
+    return 0;
+}
+
 int registerPerson() {
     char name[50];
     printf("Enter name");
@@ -101,15 +147,13 @@ int registerPerson() {
     int lengthName = strlen(name);
     personRegister[registeredPersons]._name = malloc(lengthName+1);
 
-    strcpy(personRegister[registeredPersons]._name, name); //Skal være &name istedet?
+    strcpy(personRegister[registeredPersons]._name, name); 
     personRegister[registeredPersons]._roomNumber = roomNr;
     personRegister[registeredPersons]._infected = 0;  //Preset to 0;
     registeredPersons++;
     
     return 1;
 }
-
-
 
 int appendToFile (){
     FILE *f;
@@ -147,14 +191,14 @@ int appendToFile (){
         free(s);
     }
 
-    if(writtenToFile == i) {
+    if(writtenToFile == i) { //Hvis antallet personer skrevet til fil er likt antallet registrerte
         return 1;
     } else {
         return 0;
     }
 }
-int whoIsInfected(int i){
 
+int whoIsInfected(int i){
     printf("All infected personel\n---------------------------\n");
 
     for(i=0; i < registeredPersons; i++){
@@ -167,8 +211,6 @@ int whoIsInfected(int i){
 /*int closeRelations(int i, int j){
     printf("All close relations\n---------------------------\n");
 
-    
-
     for(i=0; i < registeredPersons; i++){
         if (personRegister[i]._infected; == 1){
 
@@ -179,5 +221,4 @@ int whoIsInfected(int i){
         }
  
     return 1;
-}
-
+}*/
