@@ -110,60 +110,45 @@ int registerPerson() {
 
 int appendToFile (){
     FILE *f;
-    printf("a");
     f = fopen("Liste.txt", "a+");
-    printf("b");
     if (f == NULL) {
         printf("f e noll");
         return 0;
     }
-    printf("c");
 
-    for(int i = 0; i<registeredPersons; i++) {
+    int writtenToFile = 0;
+    int i;
+    for(i = 0; i<registeredPersons; i++) {
         char roomNr[3];
         sprintf(roomNr, "%i", personRegister[i]._roomNumber);
-        printf("Romnr: %s", roomNr);
+
+        //Konvertere roomNr til char*, siden den gamle blir blank, av en eller annen grunn
+        //C is love, kappa
+        char* roomNra = malloc(4);
+        strcpy(roomNra, roomNr);
 
         char infected[1];
         sprintf(infected, "%i", personRegister[i]._infected);
 
-        printf("Romnr: %s", roomNr);
         int nameLength = strlen(personRegister[i]._name);
-        int roomNrLength = strlen(roomNr);
+        int roomNrLength = strlen(roomNra);
         int infectedLength = strlen(infected);
-        printf("Romnr: %s", roomNr);
         int totalLength =  nameLength + roomNrLength + infectedLength + 2*strlen(",") + strlen("\n");
         char* s = malloc(totalLength+1);
 
-        sprintf(s, "%s,%s,%s\n", personRegister[i]._name, roomNr, infected);
+        sprintf(s, "%s,%s,%s\n", personRegister[i]._name, roomNra, infected);
 
-        //strcpy(s, personRegister[i]._name); //Legger navnet til strengen
-        /*strcat(s, ","); //Legger til komma
-        strcat(s, (char*) roomNr); //Legger til romnr
-        strcat(s, ","); //Legger til komma
-        strcat(s, infected);
-        strcat(s, "\n"); //Legger til newline*/
-        printf("Romnr: %s", roomNr);
-        printf("\nBruker: %s", s);
-        fprintf(f, "%s", s);
+        if (fprintf(f, "%s", s)) {
+            writtenToFile++;
+        }
         free(s);
     }
 
-    /*
-    if (fprintf(f, "%s", &s)) {
-        printf("yo");
-        fclose(f);
-        printf("yo");
-        free(s);
+    if(writtenToFile == i) {
         return 1;
     } else {
-        printf("yo2");
-        fclose(f);
-        printf("yo2");
-        free(s);
         return 0;
     }
-    */
 }
 
 /*void printDatabase(){
