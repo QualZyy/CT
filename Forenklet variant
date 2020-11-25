@@ -174,10 +174,10 @@ int whoIsInfected(int i){
 
             for(j=0, j < registeredPersons; j++){
                 if (personRegister[i]._roomNumber == personRegister[j]._roomNumber)
-                    printf ("Name: %s                   Roomnumber: %i", personRegister[i]._name, personRegister[i]._roomNumber);   
-           }  
+                    printf ("Name: %s                   Roomnumber: %i\n", personRegister[i]._name, personRegister[i]._roomNumber);   
+           }}  
         }
-    }
+ 
     return 1;
-}*/
+}
 
