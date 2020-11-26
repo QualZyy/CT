@@ -16,7 +16,7 @@ int appendToFile();
 int registerPerson();
 int whoIsInfected(int i);
 int registerContamination();
-//int closeRelations(int i, int j);
+int closeRelations();
 
 int main(){
     int exit = 0;
@@ -78,7 +78,7 @@ int main(){
                 break;
             
              case 8:
-                //closeRelations("Hei");
+                closeRelations();
 
                 break;
             
@@ -208,17 +208,17 @@ int whoIsInfected(int i){
     return 1;
 
 }
-/*int closeRelations(int i, int j){
+int closeRelations(){
     printf("All close relations\n---------------------------\n");
 
-    for(i=0; i < registeredPersons; i++){
-        if (personRegister[i]._infected; == 1){
+    for(int i=0; i < registeredPersons; i++){
+        if (personRegister[i]._infected == 1){
 
-            for(j=0, j < registeredPersons; j++){
+            for(int j=0; j < registeredPersons; j++){
                 if (personRegister[i]._roomNumber == personRegister[j]._roomNumber)
-                    printf ("Name: %s                   Roomnumber: %i\n", personRegister[i]._name, personRegister[i]._roomNumber);   
+                    printf ("Name: %s                   Roomnumber: %i\n", personRegister[j]._name, personRegister[j]._roomNumber);   
            }}  
         }
  
     return 1;
-}*/
+}
