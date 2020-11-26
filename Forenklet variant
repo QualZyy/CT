@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 struct person {
     char* _name;
     int _roomNumber;
@@ -17,6 +18,7 @@ int registerPerson();
 int whoIsInfected();
 int registerContamination();
 int closeRelations();
+int pressEnter();
 
 int main(){
     int exit = 0;
@@ -36,6 +38,7 @@ int main(){
                 } else {
                     printf("An error occured");
                 }
+                pressEnter();
                 break;
 
             case 2: //Delete person
@@ -44,6 +47,7 @@ int main(){
                 } else {
                     printf("No person with that name was found");
                 }
+                pressEnter();
                 break;
 
             case 3: //Register contamination
@@ -52,15 +56,18 @@ int main(){
                 } else {
                     printf("No person with that name was found");
                 }
+                pressEnter();
                 break;
 
             case 4: //Write to file
                 appendToFile();
-                
+
+                pressEnter();
                 break;
 
             case 5: //Read from file
 
+                pressEnter();
                 break;
 
             case 6: //Print database
@@ -70,16 +77,18 @@ int main(){
                     printf("Room: %i\n", personRegister[i]._roomNumber);
                     printf("Infected: %i\n", personRegister[i]._infected);
                 }
+                pressEnter();
                 break;
-
             case 7:  
                 whoIsInfected();
 
+                pressEnter();
                 break;
             
              case 8:
                 closeRelations();
 
+                pressEnter();
                 break;
             
              case 9:
@@ -201,7 +210,7 @@ int appendToFile (){
 int whoIsInfected(){
     printf("All infected personel\n---------------------------\n");
 
-    for(int i = 0; i < registeredPersons; i++){
+    for(int i=0; i < registeredPersons; i++){
         if (personRegister[i]._infected == 1)
             printf ("Name: %s                   Roomnumber: %i\n", personRegister[i]._name, personRegister[i]._roomNumber);   
     }
@@ -211,14 +220,25 @@ int whoIsInfected(){
 int closeRelations(){
     printf("All close relations\n---------------------------\n");
 
-    for(int i = 0; i < registeredPersons; i++){
+    for(int i=0; i < registeredPersons; i++){
         if (personRegister[i]._infected == 1){
 
-            for(int j = 0; j < registeredPersons; j++){
+            for(int j=0; j < registeredPersons; j++){
                 if (personRegister[i]._roomNumber == personRegister[j]._roomNumber)
                     printf ("Name: %s                   Roomnumber: %i\n", personRegister[j]._name, personRegister[j]._roomNumber);   
            }}  
         }
  
     return 1;
+}
+
+int pressEnter(){
+    printf("\n\nHit ANY KEY and ENTER to continue\n");
+    char enter;
+    for (int i = 1; i > 0; i++)
+    {
+        scanf("%s", &enter);
+        break;
+    }
+    
 }
