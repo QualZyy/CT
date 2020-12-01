@@ -79,6 +79,7 @@ int main(){
                     printf("Name: %s\n", personRegister[i]._name);
                     printf("Room: %i\n", personRegister[i]._roomNumber);
                     printf("Infected: %i\n", personRegister[i]._infected);
+                    printf("______________________\n");
                 }
                 pressEnter();
                 break;
