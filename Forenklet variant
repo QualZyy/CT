@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct person {
-    char* _name;
+    char* _name;  //Must malloc before using
     int _roomNumber;
     int _infected; 
 };
@@ -85,12 +85,12 @@ int main(){
                 break;
 
             case 7:  
-                whoIsInfected(1);
+                whoIsInfected();
                 pressEnter();
                 break;
             
              case 8:
-                closeRelations("Hei");
+                closeRelations();
                 pressEnter();
                 break;
             
@@ -135,32 +135,33 @@ int readFromFile() {
     char *endPointer;
 
     while(fgets(line, 50, (FILE*) f)) {
-        char *pch = malloc(52);
-        pch = strtok(line, ",");
+        char *attribute = malloc(52);
+        attribute = strtok(line, ",");
         int j = 0;
-        while(pch != NULL) {
+        while(attribute != NULL) {
             if (j == 0) {
-                int _nameLength = strlen(pch);
+                int _nameLength = strlen(attribute);
                 personRegister[registeredPersons]._name = malloc(_nameLength+2);
-                strcpy(personRegister[registeredPersons]._name, pch);
+                strcpy(personRegister[registeredPersons]._name, attribute);
             }
             if (j == 1) {
-                int roomNr = strtol(pch, &endPointer, 10);
+                int roomNr = strtol(attribute, &endPointer, 10);
                 personRegister[registeredPersons]._roomNumber = roomNr;
             }
             if (j == 2) {
-                int infectedState = strtol(pch, &endPointer, 10);
+                int infectedState = strtol(attribute, &endPointer, 10);
                 personRegister[registeredPersons]._infected = infectedState;
             }
 
-            pch = strtok(NULL, ",");
+            attribute = strtok(NULL, ",");
             j++;
         }
         registeredPersons++;
         i++;
-        free(pch);
+        free(attribute);
     }
     printf("%i persons were registered", i);
+    free(endPointer);
     return 1;
 }
 
@@ -180,6 +181,7 @@ int deletePerson() {
             return 1;
         }
     }
+    free(nameDelete);
     return 0;
 }
 
@@ -198,6 +200,7 @@ int registerContamination() {
             return 1;
         }
     }
+    free(nameInfected);
     return 0;
 }
 
@@ -221,13 +224,13 @@ int registerPerson() {
 }
 
 int appendToFile (){
-    printf("Output will be written to liste.txt\nThe file must exist");
+    printf("Output will be written to liste.txt");
     pressEnter();
 
     FILE *f;
-    f = fopen("liste.txt", "a+");
+    f = fopen("liste.txt", "w+");
     if (f == NULL) {
-        printf("f e noll");
+        printf("Could not open file");
         return 0;
     }
 
@@ -256,6 +259,8 @@ int appendToFile (){
             writtenToFile++;
         }
         free(s);
+        free(f);
+        free(roomNra);
     }
 
     if(writtenToFile == i) { //Hvis antallet personer skrevet til fil er likt antallet registrerte
@@ -278,7 +283,7 @@ int whoIsInfected(){
 
 int closeRelations(){
     printf("All close relations\n---------------------------\n");
-
+    
     for(int i=0; i < registeredPersons; i++){
         if (personRegister[i]._infected == 1){
 
